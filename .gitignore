@@ -1,0 +1,12 @@
+*.bak
+*.dll
+*.zip
+*.exe
+*.compiled
+*.~*
+*.cap
+*.dcu
+*.ppu
+*.o
+*.a
+*.map

@@ -148,7 +148,7 @@ pnbns_query=^NBNS_query;
 NBNS_query = packed record
   unknown:byte; //$20
   question_name:array[0..31] of char;
-  unknown2:byte; //$00
+  unknown2:byte; //$00 
   QUESTION_TYPE:word;
   QUESTION_CLASS:word;
 end;

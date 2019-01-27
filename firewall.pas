@@ -8,12 +8,12 @@ uses
   Classes, SysUtils,comobj,NetFwTypeLib_TLB;
 
 
+procedure DeleteFromWinFirewallNT6(const RuleName: wideString);
 procedure AddFirewallExceptionNT6(const Caption, AppPath: wideString;
     const dir:NET_FW_RULE_DIRECTION_=NET_FW_RULE_DIR_IN;
     const action:NET_FW_ACTION_=NET_FW_ACTION_ALLOW;
     const protocol:NET_FW_IP_PROTOCOL_=NET_FW_IP_PROTOCOL_ANY;
     const ports_or_IcmpTypesAndCodes:widestring='');
-procedure DeleteFromWinFirewallNT6(const RuleName: wideString);
 
 const
   NET_FW_IP_PROTOCOL_ICMPv4 = 1;

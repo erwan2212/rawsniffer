@@ -119,7 +119,7 @@ begin
       ws_rcv := recv(msg.wparam, buf, sizeof(buf), 0);
       //if (ws_rcv<=0) {or (ws_rcv>1514)} then exit;
       p:=@buf[0];
-      onpacket(p,ws_rcv,pchar(formatdatetime('hh:nn:ss zzz', now)));
+      onpacket(p,ws_rcv,pchar(formatdatetime('hh:nn:ss:zzz', now)));
       p:=nil;
     end;
   end; //case
@@ -142,7 +142,7 @@ function TRawSniffer.WindowProc(HWindow: HWnd; Message: UINT; WParam: WPARAM; LP
     begin
        ws_rcv := recv(wparam, buf, sizeof(buf), 0);  ;
        //writeln(inttostr(message)+' recv:'+inttostr(ws_rcv));
-       onpacket(@buf[0],ws_rcv,pchar(formatdatetime('hh:nn:ss zzz', now)));
+       onpacket(@buf[0],ws_rcv,pchar(formatdatetime('hh:nn:ss:zzz', now)));
       Result := 1;
     end
     else Result:=DefWindowProc(HWindow,Message,WParam,LParam);
@@ -184,6 +184,8 @@ SetWindowlongPtr(FWndHandle, GWLP_USERDATA, LONG_PTR(self));
 {$else}
   FWndHandle := AllocateHWnd(WMASyncSelect);
 {$endif}
+
+//or we could use createvent and waitforsingleobjet on a separate thread?
 
 end;
 
@@ -244,7 +246,7 @@ begin
     //set this option after BIND
     //more buffer to hold data remember : 1 frame is about 1500 bytes
     //at 1 gbits/sec, you better be fast between two recv
-    opt:=8192*4;
+    opt:=8192*8;
     result:=setsockopt(RawSocket, SOL_SOCKET, SO_RCVBUF, pchar(@opt), sizeof(opt));
     If result = SOCKET_ERROR Then Raise Exception.Create('setsockopt failed');
 
